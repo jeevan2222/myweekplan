@@ -1,17 +1,21 @@
 const express = require("express");
 const app = express();
 const port = 6969;
+const cors = require("cors");
 const userRouter = require("./src/router/user.route");
+const boardRouter = require("./src/router/board.route");
 const Dbconnection = require("./src/database/db.config");
-// Middleware to parse JSON
-app.use(express.json());
-
+const bodyParser = require("body-parser");
+app.use(cors());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 app.get("/test", (req, res) => {
   res.send("Hey Dev");
 });
-
 app.use("/users", userRouter);
-
+app.use("/board", boardRouter);
 app.use((req, res) => {
   res.status(404).send({
     status: 404,
@@ -20,7 +24,6 @@ app.use((req, res) => {
     data: null,
   });
 });
-
 app.listen(port, () => {
   console.log("Server running on port", port);
 });

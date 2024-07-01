@@ -52,10 +52,11 @@ const loginUser = async (data) => {
       where: { email, password },
       raw: true,
     });
-    const token = jwt.sign({ userId: isExists.id }, "secret-key", {
-      expiresIn: "1h",
-    });
+
     if (isExists) {
+      const token = jwt.sign({ userId: isExists.id }, "secret-key", {
+        expiresIn: "1h",
+      });
       return {
         error: false,
         status: 200,

@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
+const cors=require("cors")
 const port = 6969;
 const userRouter = require("./src/router/user.route");
 const Dbconnection = require("./src/database/db.config");
 // Middleware to parse JSON
 app.use(express.json());
-
+app.use(cors())
 app.get("/test", (req, res) => {
   res.send("Hey Dev");
 });

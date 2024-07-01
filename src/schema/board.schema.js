@@ -9,7 +9,6 @@ const Board = sequelize.define("board", {
   capacity: DataTypes.INTEGER,
   number_of_days: DataTypes.INTEGER,
 });
-
-Board.sync({ force: true });
-console.log("The table for the User model was just (re)created!");
+// Board.sync({ force: true });
+// console.log("The table for the User model was just (re)created!");
 module.exports = Board;

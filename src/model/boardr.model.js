@@ -1,16 +1,13 @@
 const Board = require("../schema/board.schema");
+const User=require("../schema/user.schema")
 const jwt = require("jsonwebtoken");
-var moment = require("moment");
+// var moment = require("moment");
 const createBoard = async (data) => {
   try {
-    const { board_name, user_email, capacity, to_date, from_date } = data;
-    const number_of_days = moment("{to_date}", "DD-MM-YYYY").diff(
-      moment("{from_date}", "DD-MM-YYYY"),
-      "days"
-    );
+    const { board_name, userId, capacity, to_date, from_date ,number_of_days} = data;
     if (
       !board_name ||
-      !user_email ||
+      !userId ||
       !capacity ||
       !to_date ||
       !from_date ||
@@ -24,7 +21,7 @@ const createBoard = async (data) => {
     }
     const BoardData = await Board.create({
       board_name,
-      user_email,
+      userId,
       capacity,
       to_date,
       from_date,
@@ -33,17 +30,36 @@ const createBoard = async (data) => {
     return {
       error: false,
       status: 201,
-      mesaage: "Board created successfully",
-      data: BoardData,
+      data:BoardData
     };
   } catch (err) {
     return {
       error: true,
       status: 500,
-      mesaage: "Internal Server Error",
+      mesaage: err,
     };
   }
 };
+const getBoard = async(id)=>{
+  try {
+    const BoardData = await Board.findAll({
+      where:{userId:id},
+      include:[{ model: User }],
+      raw:true
+    });
+    return {
+      BoardData
+    }
+    
+  } catch (error) {
+    return{
+      error
+    }
+    
+  }
+
+}
 module.exports = {
   createBoard,
+  getBoard
 };

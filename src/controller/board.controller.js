@@ -8,7 +8,18 @@ const createBoard = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+const getBoard = async (req, res) => {
+  try {
+
+    let userId=req.params.id
+    const user = await BoardModel.getBoard(userId);
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 module.exports = {
   createBoard,
+  getBoard
 };

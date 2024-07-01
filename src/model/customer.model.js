@@ -49,7 +49,7 @@ const loginUser = async (data) => {
       };
     }
     const isExists = await User.findOne({
-      where: { email, password },
+      where: { email },
       raw: true,
     });
 

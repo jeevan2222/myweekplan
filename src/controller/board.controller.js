@@ -11,7 +11,7 @@ const createBoard = async (req, res) => {
 const getBoard = async (req, res) => {
   try {
 
-    let userId=req.params.id
+    let userId=req.body.userId
     const user = await BoardModel.getBoard(userId);
     res.status(201).json(user);
   } catch (err) {

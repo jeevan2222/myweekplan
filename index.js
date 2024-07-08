@@ -4,7 +4,7 @@ const port = 6969;
 const cors = require("cors");
 const userRouter = require("./src/router/user.route");
 const boardRouter = require("./src/router/board.route");
-const taskRouter=require('./src/router/task.route')
+const taskRouter = require("./src/router/task.route");
 const Dbconnection = require("./src/database/db.config");
 const bodyParser = require("body-parser");
 app.use(cors());
